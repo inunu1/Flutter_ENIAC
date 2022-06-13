@@ -1,1 +1,105 @@
-import 'package:flutter/material.dart';void main() => runApp(MaterialApp(home: MyPage()));class MyPage extends StatefulWidget{  @override  _MyPageState createState() => _MyPageState();}class _MyPageState extends State{  double _num = 0;  void _displaynum(){    setState(()=>_num);  }  @override  Widget build(BuildContext context){    return Scaffold(      appBar: AppBar(title: Text("ENIAC"),),      body: Wrap(children: <Widget>[        TextField(          maxLength: 50,          maxLines:5,          decoration: const InputDecoration (          ),          onChanged: (String txt)  =>_num,        ),        SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定          child: ElevatedButton(            child: const Text('AC',style: TextStyle(fontSize: 40),),            onPressed: () {},          )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('C',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('For',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('=',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('1',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('2',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('3',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('+',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('4',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('5',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('6',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('-',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('7',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('8',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('9',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('*',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('+/-',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('0',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('.',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )        ,SizedBox(            width: 100, // Widgetの幅を指定            height: 100, // Widgetの高さを指定            child: ElevatedButton(              child: const Text('/',style: TextStyle(fontSize: 40),),              onPressed: () {},            )        )      ],      )    );  }}
+import 'package:flutter/material.dart';
+import 'dart:async';
+
+void main() => runApp(MyApp());
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                TextField(),
+                Keyboard(),
+              ],
+            )
+        )
+    );
+  }
+}
+//==============================================================================
+// 表示
+
+class TextField extends StatefulWidget {
+  _TextFiledState createState() => _TextFiledState();
+}
+class _TextFiledState extends State<TextField> {
+  String _expression = '1+1';
+
+  void _UpdateText(String letter){
+    setState(() {
+      if(letter == '=' || letter == 'C')
+        _expression = '';
+      else
+        _expression += letter;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        flex: 1,
+        child: Container(
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              _expression,
+              style: TextStyle(
+                fontSize: 64.0,
+              ),
+            ),
+          ),
+        )
+    );
+  }
+}
+//==============================================================================
+// キーボード
+class Keyboard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        flex: 2,
+        child: Center(
+            child: Container(
+              color: const Color(0xff87cefa),
+              child: GridView.count(
+                crossAxisCount: 4,
+                mainAxisSpacing: 3.0,
+                crossAxisSpacing: 3.0,
+                children: [
+                  '7', '8', '9', '÷',
+                  '4', '5', '6', '×',
+                  '1', '2', '3', '-',
+                  'C', '0', '=', '+',
+                ].map((key) {
+                  return GridTile(
+                    child: Button(key),
+                  );
+                }).toList(),
+              ),
+            )
+        )
+    );
+  }
+}
+// キーボタン
+class Button extends StatelessWidget {
+  final _key;
+  Button(this._key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: FlatButton(
+          onPressed: () {  },
+          child: Center(
+            child: Text(
+              _key,
+              style: TextStyle(fontSize: 46.0),
+            ),
+          ),
+        )
+    );
+  }
+}
