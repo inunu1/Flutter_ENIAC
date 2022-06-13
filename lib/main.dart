@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'calculation.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
@@ -25,12 +26,19 @@ class TextField extends StatefulWidget {
   _TextFiledState createState() => _TextFiledState();
 }
 class _TextFiledState extends State<TextField> {
-  String _expression = '1+1';
+  String _expression = '';
 
   void _UpdateText(String letter){
     setState(() {
-      if(letter == '=' || letter == 'C')
+      if(letter == 'C')
         _expression = '';
+      else if (letter == '='){
+        _expression='';
+        var ans = Calculator.Execute();
+        controller.sink.add(ans);
+      }else if (letter == 'e'){
+        _expression = 'Error';
+      }
       else
         _expression += letter;
     });
@@ -52,6 +60,12 @@ class _TextFiledState extends State<TextField> {
           ),
         )
     );
+  }
+  static final controller = StreamController<String>();
+  @override
+  void initState() {
+    controller.stream.listen((event) => _UpdateText(event));
+    controller.stream.listen((event) => Calculator.GetKey(event));
   }
 }
 //==============================================================================
@@ -92,7 +106,9 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: FlatButton(
-          onPressed: () {  },
+          onPressed: () {
+            _TextFiledState.controller.sink.add(_key);
+          },
           child: Center(
             child: Text(
               _key,
