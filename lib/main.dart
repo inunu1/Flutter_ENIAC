@@ -32,11 +32,11 @@ class _TextFiledState extends State<TextField> {
       if(letter == 'C'){
         final Clear = _expression.length - 1;
         _expression = _expression.substring(0, Clear);
-      }else if(letter == 'AC')
+      }else if(letter == 'AC'){
         _expression = '';
-      else if (letter == '='){
+      }else if (letter == '='){
         _expression='';
-        var ans = Calculator.Execute();
+        String ans = Calculator.Execute();
         controller.sink.add(ans);
       }else if (letter == 'e'){
         _expression = 'Error';

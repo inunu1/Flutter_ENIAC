@@ -9,7 +9,12 @@ class Calculator{
       _op.add(letter);
       _number.add(double.parse(_buffer));
       _buffer = '';
-    } // C
+    } // AC
+    else if(letter == 'AC'){
+      _number.clear();
+      _op.clear();
+      _buffer = '';
+    }
     else if(letter == 'C'){
       _number.clear();
       _op.clear();
