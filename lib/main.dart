@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:ffi';
+import 'package:flutter/material.dart';
 import 'calculation.dart';
-
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
@@ -27,10 +27,12 @@ class TextField extends StatefulWidget {
 }
 class _TextFiledState extends State<TextField> {
   String _expression = '';
-
   void _UpdateText(String letter){
     setState(() {
-      if(letter == 'C')
+      if(letter == 'C'){
+        final Clear = _expression.length - 1;
+        _expression = _expression.substring(0, Clear);
+      }else if(letter == 'AC')
         _expression = '';
       else if (letter == '='){
         _expression='';
@@ -43,7 +45,6 @@ class _TextFiledState extends State<TextField> {
         _expression += letter;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -54,14 +55,14 @@ class _TextFiledState extends State<TextField> {
             child: Text(
               _expression,
               style: TextStyle(
-                fontSize: 64.0,
+                fontSize: 50.10,
               ),
             ),
           ),
         )
     );
   }
-  static final controller = StreamController<String>();
+  static final controller = StreamController<String>.broadcast();
   @override
   void initState() {
     controller.stream.listen((event) => _UpdateText(event));
@@ -83,10 +84,11 @@ class Keyboard extends StatelessWidget {
                 mainAxisSpacing: 3.0,
                 crossAxisSpacing: 3.0,
                 children: [
+                  'AC', 'C', 'For', '=',
                   '7', '8', '9', '÷',
                   '4', '5', '6', '×',
                   '1', '2', '3', '-',
-                  'C', '0', '=', '+',
+                  '+/-', '0', '.', '+',
                 ].map((key) {
                   return GridTile(
                     child: Button(key),
@@ -106,15 +108,18 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: FlatButton(
-          onPressed: () {
-            _TextFiledState.controller.sink.add(_key);
-          },
           child: Center(
             child: Text(
               _key,
-              style: TextStyle(fontSize: 46.0),
+              style: TextStyle(
+                fontSize: 40.0,
+                color: Colors.black54,
+              ),
             ),
           ),
+          onPressed: (){
+            _TextFiledState.controller.sink.add(_key);
+          },
         )
     );
   }
