@@ -37,6 +37,16 @@ class _TextFiledState extends State<TextField> {
         switch(letter){
           case '+/-':
             _expression = (-1 * double.parse(_expression)).toString();
+            break;
+          case '.':
+            if (_expression.contains('.') == true){
+              _expression = _expression;
+            }else{
+              _expression += letter;
+            }
+            break;
+          case 'AC':
+            _expression = '';
         }
       }
       // if(letter == 'C'){
