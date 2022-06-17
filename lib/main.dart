@@ -29,20 +29,30 @@ class _TextFiledState extends State<TextField> {
   String _expression = '';
   void _UpdateText(String letter){
     setState(() {
-      if(letter == 'C'){
-        final Clear = _expression.length - 1;
-        _expression = _expression.substring(0, Clear);
-      }else if(letter == 'AC'){
-        _expression = '';
-      }else if (letter == '='){
-        _expression='';
-        String ans = Calculator.Execute();
-        controller.sink.add(ans);
-      }else if (letter == 'e'){
-        _expression = 'Error';
-      }
-      else
+      if (int.tryParse(letter) != null) {
+        // 数字のとき
         _expression += letter;
+      } else {
+        // 数字以外のとき
+        switch(letter){
+          case '+/-':
+            _expression = (-1 * double.parse(_expression)).toString();
+        }
+      }
+      // if(letter == 'C'){
+      //   final Clear = _expression.length - 1;
+      //   _expression = _expression.substring(0, Clear);
+      // }else if(letter == 'AC'){
+      //   _expression = '';
+      // }else if (letter == '='){
+      //   _expression='';
+      //   String ans = Calculator.Execute();
+      //   controller.sink.add(ans);
+      // }else if (letter == 'e'){
+      //   _expression = 'Error';
+      // }
+      // else
+        //_expression += letter;
     });
   }
   @override
