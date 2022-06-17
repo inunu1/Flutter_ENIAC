@@ -47,6 +47,11 @@ class _TextFiledState extends State<TextField> {
             break;
           case 'AC':
             _expression = '';
+            break;
+          case 'C':
+            final Clear = _expression.length - 1;
+            _expression = _expression.substring(0, Clear);
+            break;
         }
       }
       // if(letter == 'C'){
