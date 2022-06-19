@@ -31,18 +31,30 @@ class _TextFiledState extends State<TextField> {
     setState(() {
       if (int.tryParse(letter) != null) {
         // 数字のとき
-        _expression += letter;
+        if (_expression == '0'){
+          _expression = (int.tryParse(_expression)).toString();
+        }else{
+          _expression += letter;
+        }
       } else {
         // 数字以外のとき
         switch(letter){
-          case '+/-':
-            _expression = (-1 * double.parse(_expression)).toString();
+          case '+/-': //整数の時と小数とで処理を分ける
+            if (_expression.contains('.') == true){
+              _expression = (-1 * double.parse(_expression)).toString();
+            }else{
+              _expression = (-1 * int.parse(_expression)).toString();
+            }
             break;
           case '.':
             if (_expression.contains('.') == true){
               _expression = _expression;
             }else{
-              _expression += letter;
+              if(_expression == ''){
+                _expression = _expression;
+              }else{
+                _expression += letter;
+              }
             }
             break;
           case 'AC':
