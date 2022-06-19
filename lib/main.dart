@@ -64,6 +64,18 @@ class _TextFiledState extends State<TextField> {
             final Clear = _expression.length - 1;
             _expression = _expression.substring(0, Clear);
             break;
+          case '+':
+            _expression += letter;
+            break;
+          case '-':
+            _expression += letter;
+            break;
+          case '×':
+            _expression += letter;
+            break;
+          case '÷':
+            _expression += letter;
+            break;
         }
       }
       // if(letter == 'C'){
@@ -122,10 +134,10 @@ class Keyboard extends StatelessWidget {
                 crossAxisSpacing: 3.0,
                 children: [
                   'AC', 'C', 'For', '=',
-                  '7', '8', '9', '÷',
-                  '4', '5', '6', '×',
-                  '1', '2', '3', '-',
-                  '+/-', '0', '.', '+',
+                  '7', '8', '9', '+',
+                  '4', '5', '6', '-',
+                  '1', '2', '3', '×',
+                  '+/-', '0', '.', '÷',
                 ].map((key) {
                   return GridTile(
                     child: Button(key),
