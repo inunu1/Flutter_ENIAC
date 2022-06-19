@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'calculation.dart';
 void main() => runApp(MyApp());
@@ -76,6 +75,10 @@ class _TextFiledState extends State<TextField> {
           case '÷':
             _expression += letter;
             break;
+          case '=':
+            _expression='';
+            String ans = Calculator.Execute();
+            controller.sink.add(ans);
         }
       }
       // if(letter == 'C'){
