@@ -26,12 +26,16 @@ class TextField extends StatefulWidget {
 }
 class _TextFiledState extends State<TextField> {
   String _expression = '';
+  String num1 = '';
+  String num2 = '';
+  String operator = '';
+  String answer = '';
   void _UpdateText(String letter){
     setState(() {
       if (int.tryParse(letter) != null) {
         // 数字のとき
         if (_expression == '0'){
-          _expression = (int.tryParse(_expression)).toString();
+          _expression = letter;
         }else{
           _expression += letter;
         }
@@ -60,25 +64,24 @@ class _TextFiledState extends State<TextField> {
             _expression = '';
             break;
           case 'C':
-            final Clear = _expression.length - 1;
+            int Clear = _expression.length - 1;
             _expression = _expression.substring(0, Clear);
             break;
-          case '+':
-            _expression += letter;
-            break;
-          case '-':
-            _expression += letter;
-            break;
-          case '×':
-            _expression += letter;
-            break;
-          case '÷':
-            _expression += letter;
-            break;
           case '=':
-            _expression='';
-            String ans = Calculator.Execute();
-            controller.sink.add(ans);
+          //   _expression='';
+          //   String ans = Calculator.Execute();
+          //   controller.sink.add(ans);
+            break;
+          default:
+            if( _expression.endsWith('+') == true ||
+                _expression.contains('-') == true ||
+                _expression.contains('×') == true ||
+                _expression.contains('÷') == true ||
+                _expression == ''){
+              _expression = _expression;
+            }else{
+              _expression += letter;
+            }
         }
       }
       // if(letter == 'C'){
@@ -118,7 +121,7 @@ class _TextFiledState extends State<TextField> {
   @override
   void initState() {
     controller.stream.listen((event) => _UpdateText(event));
-    controller.stream.listen((event) => Calculator.GetKey(event));
+    //controller.stream.listen((event) => Calculator.GetKey(event));
   }
 }
 //==============================================================================
