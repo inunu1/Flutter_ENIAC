@@ -20,11 +20,16 @@ class MyApp extends StatelessWidget {
 }
 //==============================================================================
 // 表示
+
 class TextField extends StatefulWidget {
   _TextFiledState createState() => _TextFiledState();
 }
 class _TextFiledState extends State<TextField> {
   String _expression = '';
+  String num1 = '';
+  String num2 = '';
+  String operator = '';
+  String answer = '';
   void _UpdateText(String letter){
     setState(() {
       if (int.tryParse(letter) != null) {
@@ -63,47 +68,9 @@ class _TextFiledState extends State<TextField> {
             _expression = _expression.substring(0, Clear);
             break;
           case '=':
-            if(_expression.contains('+') == true){
-              int len = _expression.indexOf('+'); //何文字目に演算子が来るか
-              double? num1 = double.tryParse(_expression.substring(0,len));
-              double? num2 = double.tryParse(_expression.substring(len + 1));
-              String answer = (num1! + num2!).toString();
-              _expression = answer;
-              if (_expression.endsWith('0') == true){
-                int Clear = _expression.length - 2;
-                _expression = _expression.substring(0, Clear);
-              }
-            }else if(_expression.contains('-') == true){
-              int len = _expression.indexOf('-'); //何文字目に演算子が来るか
-              double? num1 = double.tryParse(_expression.substring(0,len));
-              double? num2 = double.tryParse(_expression.substring(len + 1));
-              String answer = (num1! - num2!).toString();
-              _expression = answer;
-              if (_expression.endsWith('0') == true){
-                int Clear = _expression.length - 2;
-                _expression = _expression.substring(0, Clear);
-              }
-            }else if(_expression.contains('×') == true){
-              int len = _expression.indexOf('×'); //何文字目に演算子が来るか
-              double? num1 = double.tryParse(_expression.substring(0,len));
-              double? num2 = double.tryParse(_expression.substring(len + 1));
-              String answer = (num1! * num2!).toString();
-              _expression = answer;
-              if (_expression.endsWith('0') == true){
-                int Clear = _expression.length - 2;
-                _expression = _expression.substring(0, Clear);
-              }
-            }else if(_expression.contains('÷') == true){
-              int len = _expression.indexOf('÷'); //何文字目に演算子が来るか
-              double? num1 = double.tryParse(_expression.substring(0,len));
-              double? num2 = double.tryParse(_expression.substring(len + 1));
-              String answer = (num1! / num2!).toString();
-              _expression = answer;
-              if (_expression.endsWith('0') == true){
-                int Clear = _expression.length - 2;
-                _expression = _expression.substring(0, Clear);
-              }
-            }
+          //   _expression='';
+          //   String ans = Calculator.Execute();
+          //   controller.sink.add(ans);
             break;
           default:
             if( _expression.contains('+') == true ||
@@ -117,6 +84,20 @@ class _TextFiledState extends State<TextField> {
             }
         }
       }
+      // if(letter == 'C'){
+      //   final Clear = _expression.length - 1;
+      //   _expression = _expression.substring(0, Clear);
+      // }else if(letter == 'AC'){
+      //   _expression = '';
+      // }else if (letter == '='){
+      //   _expression='';
+      //   String ans = Calculator.Execute();
+      //   controller.sink.add(ans);
+      // }else if (letter == 'e'){
+      //   _expression = 'Error';
+      // }
+      // else
+      //_expression += letter;
     });
   }
   @override
@@ -129,7 +110,7 @@ class _TextFiledState extends State<TextField> {
             child: Text(
               _expression,
               style: TextStyle(
-                fontSize: 64.0,
+                fontSize: 50.10,
               ),
             ),
           ),
@@ -140,7 +121,7 @@ class _TextFiledState extends State<TextField> {
   @override
   void initState() {
     controller.stream.listen((event) => _UpdateText(event));
-    controller.stream.listen((event) => Calculator.GetKey(event));
+    //controller.stream.listen((event) => Calculator.GetKey(event));
   }
 }
 //==============================================================================
