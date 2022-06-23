@@ -132,7 +132,7 @@ class _TextFiledState extends State<TextField> {
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              Formula,
+              _expression,
               style: TextStyle(
                 fontSize: 64.0,
               ),
