@@ -46,7 +46,12 @@ class _TextFiledState extends State<TextField> {
             break;
           case '.':
             if (_expression.contains('.') == true){
-              _expression = _expression;
+              if( _expression.contains('+') == true ||
+                  _expression.contains('-') == true ||
+                  _expression.contains('×') == true ||
+                  _expression.contains('÷') == true ){
+                _expression += letter;
+              }
             }else{
               if(_expression == ''){
                 _expression = _expression;
@@ -127,7 +132,7 @@ class _TextFiledState extends State<TextField> {
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              _expression,
+              Formula,
               style: TextStyle(
                 fontSize: 64.0,
               ),
@@ -137,11 +142,6 @@ class _TextFiledState extends State<TextField> {
     );
   }
   static final controller = StreamController<String>.broadcast();
-  @override
-  void initState() {
-    controller.stream.listen((event) => _UpdateText(event));
-    controller.stream.listen((event) => Calculator.GetKey(event));
-  }
 }
 //==============================================================================
 // キーボード
